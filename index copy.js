@@ -74,15 +74,23 @@ function handlingObject(data) {
 
 
 function init() {
+    let datas = loadingJson();
+    handlingdatas(datas);
+    console.log(collection.numberOfItems)
+    //console.log(JSON.stringify(collection.allItemsName))
+}
+
+function handlingdatas(datas) {
+    datas.forEach(data => {
+        handlingObject(data)
+    })
+}
+function loadingJson() {
     let datas = [];
     datas.push(readFolderJson('./data'))
     datas.push(readFolderJson('./data/spells'))
     datas.push(readFolderJson('./data/class'))
-    datas.forEach(data => {
-        handlingObject(data)
-    })
-    console.log(collection.numberOfItems)
-    //console.log(JSON.stringify(collection.allItemsName))
+    return datas;
 }
 
 function findObjectKey(object) {
