@@ -5,7 +5,7 @@ class CollectionItem {
     }
     // create a new player and save it in the collection
     newItem(detail) {
-        if (collection.allItemsName.includes(detail.name)) return;
+        if (collection.allItemsName.includes(detail.name) || detail.ENG_name === "At Higher Levels") return;
         let item = new Item(detail)
         this.items.push(item)
         return item
