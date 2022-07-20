@@ -1,4 +1,8 @@
 const fs = require('fs');
+let flag = {
+    zh_tw: true,
+    all_players: true
+}
 class CollectionItem {
     constructor() {
         this.items = []
