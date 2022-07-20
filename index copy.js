@@ -4,8 +4,9 @@ class CollectionItem {
         this.items = []
     }
     // create a new player and save it in the collection
-    newItem(name) {
-        let item = new Item(name)
+    newItem(detail) {
+        if (collection.allItemsName.includes(detail.name)) return;
+        let item = new Item(detail)
         this.items.push(item)
         return item
     }
@@ -30,8 +31,8 @@ class Item {
     }
 }
 
-let collectedData = [];
-let collection = new CollectionItem();
+
+
 function readFolderJson(folder) {
     let files = fs.readdirSync(folder);
     let data = [];
@@ -71,19 +72,17 @@ function handlingObject(data) {
     })
 }
 
-init()
 
 function init() {
     let datas = [];
     datas.push(readFolderJson('./data'))
+    datas.push(readFolderJson('./data/spells'))
+    datas.push(readFolderJson('./data/class'))
     datas.forEach(data => {
         handlingObject(data)
     })
-
     console.log(collection.numberOfItems)
-    //  console.log(JSON.stringify(collection.allItemsName))
-
-
+    //console.log(JSON.stringify(collection.allItemsName))
 }
 
 function findObjectKey(object) {
@@ -97,7 +96,8 @@ function findObjectKey(object) {
 }
 
 
-
+const collection = new CollectionItem();
+init()
 
 
 
