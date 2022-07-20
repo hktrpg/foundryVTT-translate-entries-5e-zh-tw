@@ -20,7 +20,7 @@ class CollectionItem {
     get allItemsName() {
         return this.items.map(item => item.name)
     }
-    targetItem(name) {
+    static targetItem(name) {
         return this.items.find(item => item.ENG_name === name)
     }
     // this could include summary stats like average score, etc. For simplicy, just the count for now
