@@ -113,12 +113,6 @@ function init() {
 }
 
 
-
-
-const collection = new CollectionItem();
-
-
-
 function translateItems(name) {
     let actor = findActor(name)
     actor.data.items.forEach(item => {
@@ -129,6 +123,12 @@ function translateItems(name) {
     })
 
 }
+
+
+
+const collection = new CollectionItem();
+
+
 
 
 /**
