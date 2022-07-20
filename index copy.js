@@ -16,6 +16,9 @@ class CollectionItem {
     get allItemsName() {
         return this.items.map(item => item.name)
     }
+    targetItem(name) {
+        return this.items.find(item => item.ENG_name === name)
+    }
     // this could include summary stats like average score, etc. For simplicy, just the count for now
     get numberOfItems() {
         return this.items.length
@@ -27,7 +30,7 @@ class Item {
     constructor({ name, ENG_name, entries }) {
         this.name = name;
         this.ENG_name = ENG_name;
-        this.entries = entries;
+        this.entries = entries.join("\n");
     }
 }
 
@@ -71,15 +74,6 @@ function handlingObject(data) {
         }
     })
 }
-
-
-function init() {
-    let datas = loadingJson();
-    handlingdatas(datas);
-    console.log(collection.numberOfItems)
-    //console.log(JSON.stringify(collection.allItemsName))
-}
-
 function handlingdatas(datas) {
     datas.forEach(data => {
         handlingObject(data)
@@ -102,11 +96,35 @@ function findObjectKey(object) {
     }
 
 }
+function findActor(name) {
+    return game.actors.find(actor => actor.name === name)
+}
+
+function init() {
+    let datas = loadingJson();
+    handlingdatas(datas);
+    console.log(collection.numberOfItems)
+    //console.log(JSON.stringify(collection.allItemsName))
+    translateItems('QAQ')
+}
+
+
 
 
 const collection = new CollectionItem();
-init()
 
+
+
+function translateItems(name) {
+    let actor = findActor(name)
+    actor.data.items.forEach(item => {
+        let actorItem = collection.targetItem(item.name);
+        if (actorItem) {
+            item.data.data.description.value = actorItem.entries;
+        }
+    })
+
+}
 
 
 /**
