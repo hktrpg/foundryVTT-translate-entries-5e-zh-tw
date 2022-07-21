@@ -35,7 +35,19 @@ class FiveEToolsItem {
     constructor({ name, ENG_name, entries }) {
         this.name = name;
         this.ENG_name = ENG_name;
-        this.entries = entries.join("\n");
+        this.entries = FiveEToolsItem.flatten(entries).join('\n\n')
+    }
+    static flatten(array) {
+       
+        var flattend = [];
+        (function flat(array) {
+            array.forEach(function (el) {
+                if (el instanceof String) flattend.push(el)
+                if (el instanceof Object) flattend.push(Object.values(el))
+            });
+        })(array);
+        console.log('flattend', flattend)
+        return flattend;
     }
 }
 
@@ -83,8 +95,8 @@ function handlingObject(data) {
     })
 }
 function handlingdatas(datas) {
-    //console.log('datas', datas)
-    datas.feat.forEach(data => {
+    if (datas instanceof Object) datas = Object.values(datas)
+    datas.forEach(data => {
         handlingObject(data)
     })
 }
