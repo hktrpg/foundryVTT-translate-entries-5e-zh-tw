@@ -40,23 +40,18 @@ class FiveEToolsItem {
 }
 
 
+async function getJsonData(url) {
+    const response = await fetch(url);
+    return await response.json();
+}
 
-function readFolderJson(folder) {
-    FilePicker.browse("data", `modules/translate_entries_5e` + folder).then((datafiles) => {
-        let files = datafiles.files;
-        let data = [];
-        console.log('files', files.length)
-        files.forEach(file => {
-            if (file.includes('.json')) {
-                fetch(file).then(response => response.json())
-                    .then(newdata => {
-                        data.push(newdata);
-                    });
+async function readFolderJson(folder) {
+    const folderList = await FilePicker.browse("data", `modules/translate_entries_5e` + folder)
+    let files = folderList.files;
+    console.log('folderList', files)
+    let data = await getJsonData(files[0])
+    return data;
 
-            }
-        })
-        return data;
-    })
 
 }
 
@@ -74,7 +69,7 @@ function searchTargetKey(obj, keys) {
 
 function handlingObject(data) {
     const keys = findObjectKey(data);
-    console.log('keys', keys)
+    //console.log('keys', keys)
     searchTargetKey(data, keys);//搜索所有object有沒有三個指定的key
     keys.forEach(key => {
         if (data[key] instanceof Array) {
@@ -88,17 +83,18 @@ function handlingObject(data) {
     })
 }
 function handlingdatas(datas) {
-    console.log('datas', datas)
-    datas.forEach(data => {
+    //console.log('datas', datas)
+    datas.feat.forEach(data => {
         handlingObject(data)
     })
 }
-function loadingJson() {
-    let datas = [];
-    datas.push(readFolderJson('/data'))
-    datas.push(readFolderJson('/data/spells'))
-    datas.push(readFolderJson('/data/class'))
+async function loadingJson() {
+    let datas = await readFolderJson('/data')
+    // datas.push(readFolderJson('/data'))
+    // datas.push(readFolderJson('/data/spells'))
+    // datas.push(readFolderJson('/data/class'))
 
+    //        console.log('loadingJson', datas)
 
     return datas;
 }
@@ -123,6 +119,7 @@ function translateItems(name) {
     actor.data.items.forEach(item => {
         let actorItem = collection.targetItem(item.name);
         if (actorItem) {
+            console.log(actorItem.entries)
             item.data.data.description.value = actorItem.entries;
         }
     })
@@ -130,20 +127,12 @@ function translateItems(name) {
 }
 
 
-function init() {
-    let datas = loadingJson();
-    Promise
-        .all(datas) // (4)
-        .then(function () {
-            console.log('datas', datas.length)
-            handlingdatas(datas);
-            console.log(collection.numberOfItems)
-        });
-
-
-
+async function init() {
+    let datas = await loadingJson();
+    console.log('init', datas)
+    handlingdatas(datas);
     //console.log(JSON.stringify(collection.allItemsName))
-    //translateItems('QAQ')
+    translateItems('QAQ')
 }
 
 const collection = new CollectionItem();
@@ -151,8 +140,6 @@ Hooks.once('ready', () => {
     console.log('ready translate')
     init()
 });
-
-
 
 
 
