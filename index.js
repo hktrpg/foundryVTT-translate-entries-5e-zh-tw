@@ -64,9 +64,20 @@ async function getJsonData(url) {
 async function readFolderJson(folder) {
     const folderList = await FilePicker.browse("data", `modules/translate_entries_5e` + folder)
     let files = folderList.files;
+    const promises = [];
     console.log('folderList', files)
-    let data = await getJsonData(files[0])
-    return data;
+    for (let file of files) {
+        promises.push(await getJsonData(file))
+    }
+    Promise.all(promises)
+        .then((results) => {
+            console.log("All done", results);
+        })
+        .catch((e) => {
+            // Handle errors here
+        });
+
+    return promises;
 
 
 }
@@ -105,14 +116,24 @@ function handlingdatas(datas) {
     })
 }
 async function loadingJson() {
-    let datas = await readFolderJson('/data')
+    const promises = [];
+    promises.push(await readFolderJson('/data'))
+    promises.push(await readFolderJson('/data/spells'))
+    promises.push(await readFolderJson('/data/class'))
+
     // datas.push(readFolderJson('/data'))
     // datas.push(readFolderJson('/data/spells'))
     // datas.push(readFolderJson('/data/class'))
-
+    Promise.all(promises)
+        .then((results) => {
+            console.log("All done", results);
+        })
+        .catch((e) => {
+            // Handle errors here
+        });
     //        console.log('loadingJson', datas)
 
-    return datas;
+    return promises;
 }
 
 function findObjectKey(object) {
