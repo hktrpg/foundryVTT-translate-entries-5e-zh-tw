@@ -10,7 +10,7 @@ class CollectionItem {
     }
     // create a new player and save it in the collection
     newItem(detail) {
-        if (collection.allItemsName.includes(detail.name) || detail.ENG_name === "At Higher Levels") return;
+        if (collection.allItemsName.includes(detail.name) || detail.ENG_name === "At Higher Levels" || detail.ENG_name === "Bonus Proficiency") return;
         let item = new FiveEToolsItem(detail)
         this.items.push(item)
         return item
