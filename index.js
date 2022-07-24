@@ -35,18 +35,22 @@ class FiveEToolsItem {
     constructor({ name, ENG_name, entries }) {
         this.name = name;
         this.ENG_name = ENG_name;
-        this.entries = FiveEToolsItem.flatten(entries).join('\n\n')
+        this.entries = FiveEToolsItem.flatten(entries)
     }
     static flatten(array) {
-       
-        var flattend = [];
+
+        let flattend = [];
         (function flat(array) {
             array.forEach(function (el) {
-                if (el instanceof String) flattend.push(el)
-                if (el instanceof Object) flattend.push(Object.values(el))
+                //   console.log('el', el)
+                if (typeof el === 'string') {
+                    flattend.push(el)
+                }
+                if (el instanceof Object) flat(el.items)
+                if (el instanceof Array) flat(el)
             });
         })(array);
-        console.log('flattend', flattend)
+        flattend = flattend.join('<br><br>').replaceAll(/{.+?class=(.+?)\|.+?}/ig, `[$1]`)
         return flattend;
     }
 }
