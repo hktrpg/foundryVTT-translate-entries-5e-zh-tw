@@ -65,13 +65,13 @@ async function readFolderJson(folder) {
     const folderList = await FilePicker.browse("data", `modules/translate_entries_5e` + folder)
     let files = folderList.files;
     const promises = [];
-    console.log('folderList', files)
+    //console.log('folderList', files)
     for (let file of files) {
         promises.push(await getJsonData(file))
     }
     Promise.all(promises)
         .then((results) => {
-            console.log("All done", results);
+            //   console.log("All done", results);
         })
         .catch((e) => {
             // Handle errors here
@@ -126,7 +126,7 @@ async function loadingJson() {
     // datas.push(readFolderJson('/data/class'))
     Promise.all(promises)
         .then((results) => {
-            console.log("All done", results);
+            //   console.log("All done", results);
         })
         .catch((e) => {
             // Handle errors here
@@ -151,12 +151,12 @@ function findActor(name) {
 
 
 
-function translateItems(name) {
-    let actor = findActor(name)
-    actor.data.items.forEach(item => {
+function translateItems(x) {
+    // let actor = findActor(name)
+    x.object.data.items.forEach(item => {
         let actorItem = collection.targetItem(item.name);
         if (actorItem) {
-            console.log(actorItem.entries)
+            item.data.name = actorItem.name;
             item.data.data.description.value = actorItem.entries;
         }
     })
@@ -164,18 +164,25 @@ function translateItems(name) {
 }
 
 
-async function init() {
+
+async function init(x) {
     let datas = await loadingJson();
-    console.log('init', datas)
+    //  console.log('init', datas)
     handlingdatas(datas);
     //console.log(JSON.stringify(collection.allItemsName))
-    translateItems('QAQ')
+    translateItems(x)
 }
 
 const collection = new CollectionItem();
 Hooks.once('ready', () => {
-    console.log('ready translate')
-    init()
+    console.log('ready 5e translate')
+    //   init()
+});
+
+
+Hooks.on('renderActorSheet', (x, y, z) => {
+    init(x)
+
 });
 
 
