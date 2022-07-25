@@ -50,7 +50,7 @@ class FiveEToolsItem {
                 if (el instanceof Array) flat(el)
             });
         })(array);
-        flattend = flattend.join('<br><br>').replaceAll(/{.+?class=(.+?)\|.+?}/ig, `[$1]`)
+        flattend = flattend.join('<br><br>').replaceAll(/{.+?class=(.+?)\|.+?}/ig, `[$1]`).replaceAll(/{@dice\s+(.+?)}/ig, `[[$1]]`)
         return flattend;
     }
 }
@@ -160,9 +160,7 @@ function translateItems(x) {
             item.data.data.description.value = actorItem.entries;
         }
     })
-
 }
-
 
 
 async function init(x) {
@@ -176,14 +174,13 @@ async function init(x) {
 const collection = new CollectionItem();
 Hooks.once('ready', () => {
     console.log('ready 5e translate')
-    //   init()
 });
 
 
 Hooks.on('renderActorSheet', (x, y, z) => {
     init(x)
-
 });
+
 
 
 

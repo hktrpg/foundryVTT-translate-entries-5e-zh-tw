@@ -4,42 +4,27 @@
 ![Download](https://img.shields.io/badge/Foundry-v0.8.9-informational)
 <a href="https://patreon.com/HKTRPG"><img src="https://img.shields.io/endpoint.svg?url=https://shieldsio-patreon.vercel.app/api/?username=HKTRPG&type=patrons" /></a>
 
-Specify the identity of the speaker, no longer based on the selected token
+利用5etools中文網內容，自動把5e角色卡內容 翻譯成中文
 
 ![readme](./readme.png)
 
 ## Behavior
 
-- A select bar for identity speaker
-  - Will be on top if there is a 《Selected Character》
-- A checkbox to contral 《Speak As》
-  - Unchecked checkbox will Use the original FVTT Spearker setting.(Seleted token takes precedence over selected character)
+- 當你打開角色卡，本插件會搜尋與5eTools相關的項目(專長，魔法等)，並自動取代描述內容成中文。
+  - 這種取代方式並不會實際上修改角色卡數據，取消啓動本Modules後，一切還原。
 
 ## Current Problem
 
-- Now 《Speak As》 is placed in the div tag chat-controls, which causes the display to change and distorted.
-- Ideally, it is placed on the sidebar-tabs layer, between chatlog and chat-controls, but I don’t know how to write (CRY
+- 有些內容並未使用FVTT格式，如[@DICE 1d6]。
+- 一些內容可以擲骰時顯示成中文，但一些不可以。
+- 所有內容是自動取代，沒有驗證。
 
 ## Changelog
-
-### v1.2.1
-
-fix bug. Thankyou ravingdragoon report.
-
-### v1.2.0
-
-Storage the checkbox state.
-
-### v1.1.5
-
-Get the style by js.
-
-### v1.1.0
-
-Add a checkbox for switch function.
-
-First character be selected character.
 
 ### v1.0.0
 
 Done.
+
+## 致謝
+
+- 翻譯內容來源自 [5eTools/中文版](https://github.com/fvtt-cn/5etools) 並使用Convertzz 進行翻譯，感謝所有相關成員。
