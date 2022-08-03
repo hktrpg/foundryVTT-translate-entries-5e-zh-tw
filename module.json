@@ -7,8 +7,8 @@
   "url": "https://github.com/hktrpg/foundryVTT-translate-entries-5e-zh-tw",
   "flags": {},
   "version": "0.0.1",
-  "minimumCoreVersion": "V9",
-  "compatibleCoreVersion": "V9",
+  "minimumCoreVersion": "9",
+  "compatibleCoreVersion": "9",
   "scripts": [
     "./index.js"
   ],
@@ -19,8 +19,7 @@
   "dependencies": [],
   "socket": true,
   "manifest": "https://raw.githubusercontent.com/hktrpg/foundryVTT-translate-entries-5e-zh-tw/main/module.json",
-  "download2": "https://github.com/hktrpg/foundryVTT-translate-entries-5e-zh-tw/releases/latest/download/module.zip",
-  "download": "https://github.com/hktrpg/foundryVTT-translate-entries-5e-zh-tw/archive/refs/heads/main.zip",
+  "download": "https://github.com/hktrpg/foundryVTT-translate-entries-5e-zh-tw/releases/latest/download/module.zip",
   "protected": false,
   "coreTranslation": false
 }
