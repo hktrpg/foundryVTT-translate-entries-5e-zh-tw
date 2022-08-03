@@ -62,7 +62,7 @@ async function getJsonData(url) {
 }
 
 async function readFolderJson(folder) {
-    const folderList = await FilePicker.browse("data", `modules/translate_entries_5e` + folder)
+    const folderList = await FilePicker.browse("data", `modules/translate_5e_entries` + folder)
     let files = folderList.files;
     const promises = [];
     //console.log('folderList', files)
@@ -156,7 +156,7 @@ function translateItems(x) {
     x.object.data.items.forEach(item => {
         let actorItem = collection.targetItem(item.name);
         if (actorItem) {
-            item.data.name = actorItem.name;
+            //item.data.name = actorItem.name;
             item.data.data.description.value = actorItem.entries;
         }
     })
