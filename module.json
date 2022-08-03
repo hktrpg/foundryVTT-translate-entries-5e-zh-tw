@@ -1,7 +1,7 @@
 {
   "name": "translate_5e_entries",
   "title": "5e 道具及魔法 翻譯工具",
-  "description": "利用5etools中文網內容，自動把5e角色卡內容 翻譯成中文",
+  "description": "利用5etools中文網內容，自動把5e角色卡的魔法內容，翻譯成中文",
   "author": "Sad, HKTRPG",
   "authors": [],
   "url": "https://github.com/hktrpg/foundryVTT-translate-entries-5e-zh-tw",
